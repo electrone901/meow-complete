@@ -2,6 +2,8 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { developmentChains } from "../helper-hardhat-config";
 import { network } from "hardhat";
+import { networkConfig } from "../helper-hardhat-config";
+import { getTokenBalance, sendLink } from "../tasks";
 
 /** Deploy mock contracts necessary for testing on local networks
  *
@@ -13,20 +15,28 @@ const deployMocks: DeployFunction = async function (hre: HardhatRuntimeEnvironme
   const { deploy, log } = hre.deployments;
   const { ethers } = hre;
 
-  // MockV3Aggregator constructor arguments
-  const INTIIAL_PRICE = ethers.utils.parseUnits("1579", 8); // sets MockV3Aggregator.latestRoundData().answer
-  const DECIMALS = "8";
+  log("------------------------------------");
+  const chainId = await hre.ethers.provider.getNetwork().then(network => network.chainId);
+  const { VRFV2WrapperAddress, linkTokenAddress } = networkConfig[chainId].VRFConsumer;
 
-  // Chainlink VRF Coordinator constructor arguments
-  const BASE_FEE = ethers.utils.parseEther("0.25"); // 0.25 is the premium. It costs 0.25 LINK per request
-  const GAS_PRICE_LINK = 1e9; // calculated value based on the gas price of the chain
+  const args = [linkTokenAddress, VRFV2WrapperAddress];
 
   log("Petfeedme...");
-  await deploy("Petfeedme", {
+  const Petfeedme = await deploy("Petfeedme", {
     from: deployer,
     log: true,
-    args: [],
+    args: args,
   });
+
+
+  // check the LINK balance
+  const VRFConsumerLinkBalance = await getTokenBalance(hre, Petfeedme.address, linkTokenAddress);
+  // fund with LINK if the balance is 0 LINK (i.e. fresh deployment)
+  if (+VRFConsumerLinkBalance === 0) {
+    const amount = 1;
+    console.log(`Funding VRFConsumer contract with ${amount} LINK`);
+    await sendLink(Petfeedme.address, amount, hre);
+  }
 
   // if (developmentChains.includes(network.name)) {
   //   log("Local network detected... Deploying mocks...");

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { HiArrowDownCircle } from "react-icons/hi2";
 import { BsHeartFill } from "react-icons/bs";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useAccount } from "wagmi";
 
 const backgroundImageStyle = {
   backgroundImage: 'url("/assets/background.jpg")',
@@ -13,6 +15,16 @@ const backgroundImageStyle = {
 
 function StatusCat() {
   const router = useRouter();
+  const { address } = useAccount();
+
+  const { data: petProfile } = useScaffoldContractRead({
+    contractName: "Petfeedme",
+    functionName: "getUserPet",
+    args: [address],
+  });
+
+  console.log(petProfile);
+
   return (
     <div style={backgroundImageStyle}>
       <div className="flex items-center justify-center">
@@ -22,7 +34,7 @@ function StatusCat() {
           <div className="grid grid-cols-5 gap-4">
             <div className=" p-4 col-span-2 flex items-center justify-center">
               <Image
-                src="/assets/cat 001.png"
+                src={petProfile?.img}
                 width={1900}
                 height={1900}
                 alt="pet"
@@ -33,7 +45,7 @@ function StatusCat() {
             <div className="bg-[#FFECCE] p-4 col-span-3 border-8 border-white rounded-md">
               <div className="flex items-center pt-20">
                 <p className="font-semibold text-2xl text-black px-4 py-3">Calories</p>
-                <p className="font-semibold text-2xl text-black px-4 ">208 Cal</p>
+                <p className="font-semibold text-2xl text-black px-4 ">{petProfile?.calories.toString()} Cal</p>
                 <HiArrowDownCircle color="red" fontSize={25} className="ml-1" />
               </div>
               <div className="flex items-center">

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useScaffoldContract } from "~~/hooks/scaffold-eth";
+import { useWalletClient, useAccount } from "wagmi";
+import { useRouter } from "next/router";
 import { ImPlus } from "react-icons/im";
 import { ImMinus } from "react-icons/im";
 
@@ -14,12 +17,21 @@ const backgroundImageStyle = {
 
 // NEEDED TO do new screen step 9
 function FoodPayment() {
+  const { address } = useAccount();
+  const router = useRouter();
+
   const calories = Number(56);
   const [selected, setSelected] = useState(Number(-1));
   const [selectedFood, setSelectedFood] = useState("");
   const [count, setCount] = useState(0);
 
   const [price, setPrice] = useState(0.99);
+
+  const { data: walletClient } = useWalletClient();
+  const { data: yourContract } = useScaffoldContract({
+    contractName: "Petfeedme",
+    walletClient,
+  });
 
   const calculateTotal = () => {
     const total = count * price;
@@ -46,6 +58,11 @@ function FoodPayment() {
   };
   const formatCount = () => {
     return count.toString().padStart(3, "0");
+  };
+
+  const feedPet = async () => {
+    await yourContract?.write.feedPet([address]);
+    router.push("/statusCat");
   };
 
   return (
@@ -138,7 +155,7 @@ function FoodPayment() {
                     count <= 0 ? "cursor-not-allowed opacity-50" : "hover:bg-[#d1a24b]"
                   }`}
                   disabled={count <= 0}
-                  // onClick={() => router.push("/statusCat")}
+                  onClick={() => feedPet()}
                 >
                   Next
                 </button>

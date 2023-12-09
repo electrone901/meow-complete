@@ -9,9 +9,12 @@ contract Petfeedme is ERC721URIStorage {
   Counters.Counter public _totalNFTs;
   uint public _totalFundraisers = 0;
   uint public _totalDonations = 0;
+  uint public _totalPets = 0;
 
   mapping(uint => Fundraiser) public fundraiserList;
   mapping(uint => Donation) public donationList;
+  mapping(uint => PetProfile) public petList;
+  mapping(address => PetProfile) public userpetList;
 
   struct Donation {
     uint id;
@@ -29,6 +32,17 @@ contract Petfeedme is ERC721URIStorage {
     address organizer;
   }
 
+   struct PetProfile {
+    uint id;
+    uint calories;
+    address walletaddress;
+    uint donations;
+    string organizationlink;
+    string name;
+    string img;
+    string story;
+  }
+
   event FundraiserCreated (
     uint id,
     string cid,
@@ -36,9 +50,44 @@ contract Petfeedme is ERC721URIStorage {
     address organizer
   );
 
+  event PetCreated (
+    uint id,
+    uint calories,
+    address walletaddress,
+    uint donations,
+    string organizationlink,
+    string name,
+    string img,
+    string story
+  );
 
   constructor() ERC721("Meow", "MEOW") {}
   // calldata is read only, use for funct inputs as params
+
+  function getUserPet (address walletaddress) public view returns (PetProfile memory) {
+    return userpetList[walletaddress];
+  }
+
+  function createPetProfile(
+    uint calories,
+    address walletaddress,
+    uint donations,
+    string calldata organizationlink,
+    string calldata name,
+    string calldata img,
+    string calldata story
+  ) public  {
+    PetProfile memory newpet = PetProfile(_totalPets, calories, walletaddress, donations, organizationlink, name, img, story);
+    petList[_totalPets] = newpet;
+    userpetList[walletaddress] = newpet;
+    emit PetCreated(_totalPets, calories, walletaddress, donations, organizationlink, name, img, story);
+    _totalPets++;
+  }
+
+  function setPetName(address walletaddress, string calldata name) public  {
+    PetProfile storage pet = userpetList[walletaddress];
+    pet.name = name;
+  }
 
   function createFoundraiser(string calldata _cid, uint _targetAmmount) public  {
     fundraiserList[_totalFundraisers] = Fundraiser(_totalFundraisers, _cid, _targetAmmount, 0, msg.sender);

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { BiSolidRightArrow } from "react-icons/bi";
 // import { MdVerified } from "react-icons/md";
+import { useWalletClient, useAccount } from "wagmi";
+import { useScaffoldContract } from "~~/hooks/scaffold-eth";
 
 const backgroundImageStyle = {
   backgroundImage: 'url("/assets/background pic 002.png")',
@@ -14,6 +16,13 @@ const backgroundImageStyle = {
 function SelectCat() {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(Number(-1));
+  const { address } = useAccount();
+
+  const { data: walletClient } = useWalletClient();
+  const { data: yourContract } = useScaffoldContract({
+    contractName: "Petfeedme",
+    walletClient,
+  });
 
   const data = [
     { front: "/assets/cat 001.png", back: "/assets/1.png" },
@@ -33,6 +42,12 @@ function SelectCat() {
   const openWebsite = () => {
     window.open("https://bestfriends.org/adopt/adopt-our-sanctuary/9384987/mousie", "_blank");
   };
+
+  const setImage = async() => {
+    console.log(data[selectedImage].front);
+    await yourContract?.write.createPetProfile([0, address, 0, "", "", data[selectedImage].front, ""]);
+    router.push("/nameCat")
+  }
 
   return (
     <div style={backgroundImageStyle}>
@@ -87,7 +102,7 @@ function SelectCat() {
       <div className="flex items-center justify-center mt-20 ">
         <button
           className="bg-gray-400 text-white border-4 border-white hover:bg-gray-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out w-[140px]"
-          onClick={() => router.push("/nameCat")}
+          onClick={() => setImage() }
         >
           Next
         </button>

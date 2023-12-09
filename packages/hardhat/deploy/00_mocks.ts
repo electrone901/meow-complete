@@ -21,25 +21,32 @@ const deployMocks: DeployFunction = async function (hre: HardhatRuntimeEnvironme
   const BASE_FEE = ethers.utils.parseEther("0.25"); // 0.25 is the premium. It costs 0.25 LINK per request
   const GAS_PRICE_LINK = 1e9; // calculated value based on the gas price of the chain
 
-  if (developmentChains.includes(network.name)) {
-    log("Local network detected... Deploying mocks...");
+  log("Petfeedme...");
+  await deploy("Petfeedme", {
+    from: deployer,
+    log: true,
+    args: [],
+  });
 
-    log("Deploying MockV3Aggregator...");
-    await deploy("MockV3Aggregator", {
-      from: deployer,
-      log: true,
-      args: [DECIMALS, INTIIAL_PRICE],
-    });
+  // if (developmentChains.includes(network.name)) {
+  //   log("Local network detected... Deploying mocks...");
 
-    log("Deploying VRFCoordinatorV2Mock...");
-    await deploy("VRFCoordinatorV2Mock", {
-      from: deployer,
-      log: true,
-      args: [BASE_FEE, GAS_PRICE_LINK],
-    });
-    log("Mock contracts successfully deployed on local network!");
-    log("------------------------------------");
-  }
+  //   log("Deploying MockV3Aggregator...");
+  //   await deploy("MockV3Aggregator", {
+  //     from: deployer,
+  //     log: true,
+  //     args: [DECIMALS, INTIIAL_PRICE],
+  //   });
+
+  //   log("Deploying VRFCoordinatorV2Mock...");
+  //   await deploy("VRFCoordinatorV2Mock", {
+  //     from: deployer,
+  //     log: true,
+  //     args: [BASE_FEE, GAS_PRICE_LINK],
+  //   });
+  //   log("Mock contracts successfully deployed on local network!");
+  //   log("------------------------------------");
+  // }
 };
 
 export default deployMocks;

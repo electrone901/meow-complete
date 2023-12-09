@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { useRouter } from "next/router";
+import { useScaffoldContract } from "~~/hooks/scaffold-eth";
+import { useWalletClient, useAccount } from "wagmi";
 
 const backgroundImageStyle = {
   backgroundImage: 'url("/assets/background pic 002.png")',
@@ -15,8 +17,20 @@ const backgroundImageStyle = {
 function NameCat() {
   const [name, setName] = useState("");
   const router = useRouter();
+  const { address } = useAccount();
   const handleInputChange = e => {
     setName(e.target.value);
+  };
+
+  const { data: walletClient } = useWalletClient();
+  const { data: yourContract } = useScaffoldContract({
+    contractName: "Petfeedme",
+    walletClient,
+  });
+
+  const setPetName = async () => {
+    await yourContract?.write.setPetName([address, name]);
+    router.push("/statusCat");
   };
 
   return (
@@ -54,7 +68,7 @@ function NameCat() {
             name.length < 3 ? "cursor-not-allowed opacity-50" : "hover:bg-[#d1a24b]"
           }`}
           disabled={name.length < 3}
-          onClick={() => router.push("/statusCat")}
+          onClick={() => setPetName()}
         >
           Next
         </button>

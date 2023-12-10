@@ -1,26 +1,31 @@
+S:
+
+- reuse Petfeedme deploy it and add chainlink to it.
+- make sure u tested all functions
+- connect to the FE & make sure it is getting data on the console.log (call it using useEffect or btn & log it out)
+
+E:
+
+- add home page
+- add simple createProfile form page
+- add detailsProfile page
 
 REQUIREMENTS:
 
-
 - add chainlink
 - add SC:
-    - create pet profile takes cid, calories, wallet address, donations
-          save organization link, name, img, story,
-    - get all pet profiles to display
-     - createDonation takes nameGiven recipientWallet, DonatorWallet donationAmount, ItemName,  ItemAmount, donatedCalories,
 
-     - getAllMyDonationsByWallet()
+  - create pet profile takes cid, calories, wallet address, donations
+    save organization link, name, img, story,
+  - get all pet profiles to display
+  - createDonation takes nameGiven recipientWallet, DonatorWallet donationAmount, ItemName, ItemAmount, donatedCalories,
 
-
-
-
-
-
-
+  - getAllMyDonationsByWallet()
 
 # 🏃 [Speedrun Chainlink](https://speedrun-chainlink.vercel.app/)
 
 A beginner's guide to implimenting chainlink products with smart contracts. Dive into simplified examples that will teach you how to:
+
 - Access price quotes for a variety of assets on a wide range of networks
 - Generate veriably random numbers using the VRF Coordinator
 - Configure Chainlink automation to execute transactions based on time intervals or conditional logic
@@ -39,11 +44,14 @@ A beginner's guide to implimenting chainlink products with smart contracts. Dive
 ```
 yarn install
 ```
+
 2. Grab funds from the faucets and set up your dev wallet to be the hardhat deployer account
+
 - [sepolia ETH faucet](https://sepoliafaucet.com/)
 - [sepolia LINK faucet](https://faucets.chain.link/)
 
 3. Deploy the contracts on sepolia network
+
 ```
 yarn deploy --network sepolia
 ```

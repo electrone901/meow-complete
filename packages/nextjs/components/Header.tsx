@@ -66,7 +66,7 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky xl:static top-0 navbar border-b-2 border-base-200 min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2">
+    <div className="sticky xl:static top-0 navbar border-b-2 border-white bg-white min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2">
       <div className="navbar-start w-auto">
         <div className="xl:hidden dropdown" ref={burgerMenuRef}>
           <label
@@ -81,7 +81,7 @@ export const Header = () => {
           {isDrawerOpen && (
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52"
               onClick={() => {
                 setIsDrawerOpen(false);
               }}
@@ -91,7 +91,7 @@ export const Header = () => {
           )}
         </div>
         <Link href="/" passHref className="hidden xl:flex items-center gap-2 ml-4 mr-6 shrink-0 font-cubano text-3xl">
-          <Image src="/assets/logo.png" alt="logo" width={40} height={40} />
+          <Image src="/assets/cat logo.png" alt="logo" width={40} height={40} />
           <img src="/assets/Meow.png" alt="Your Image" className="ml-2 w-[130px] h-[25px] object-cover" />
         </Link>
         <div>

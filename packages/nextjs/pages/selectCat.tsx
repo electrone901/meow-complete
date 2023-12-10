@@ -40,14 +40,15 @@ function SelectCat() {
   };
 
   const openWebsite = () => {
-    window.open("https://bestfriends.org/adopt/adopt-our-sanctuary/9384987/mousie", "_blank");
+    // window.open("https://bestfriends.org/adopt/adopt-our-sanctuary/9384987/mousie", "_blank");
+    router.push("/fundraiserDetails");
   };
 
-  const setImage = async() => {
+  const setImage = async () => {
     console.log(data[selectedImage].front);
-    await yourContract?.write.createPetProfile([0, address, 0, "", "", data[selectedImage].front, ""]);
-    router.push("/nameCat")
-  }
+    // await yourContract?.write.createPetProfile([0, address, 0, "", "", data[selectedImage].front, ""]);
+    router.push("/nameCat");
+  };
 
   return (
     <div style={backgroundImageStyle}>
@@ -82,7 +83,7 @@ function SelectCat() {
                   className="cursor-pointer bg-[#1BE73C] text-black px-4 py-2 rounded-full text-sm absolute top-8 ml-5 transform -translate-x-1/1 -translate-y-1/1 transform duration-300 ease-in-out"
                   onClick={openWebsite}
                 >
-                  Open website
+                  See All Details
                 </div>
               )}
 
@@ -102,9 +103,9 @@ function SelectCat() {
       <div className="flex items-center justify-center mt-20 ">
         <button
           className="bg-gray-400 text-white border-4 border-white hover:bg-gray-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out w-[140px]"
-          onClick={() => setImage() }
+          onClick={() => setImage()}
         >
-          Next
+          Upload Your Cat Story
         </button>
       </div>
     </div>

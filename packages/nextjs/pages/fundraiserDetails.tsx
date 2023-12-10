@@ -27,9 +27,13 @@ function FundraiserDetails() {
     router.push(`/statusCat`);
   };
 
+  const getUpdates = () => {
+    router.push(`/getUpdates`);
+  };
+
   return (
     <StylesProvider injectFirst>
-      <Container className="page-community" style={{ minHeight: "70vh", paddingBottom: "1rem" }}>
+      <Container className="bg-white text-black" style={{ minHeight: "70vh", paddingBottom: "1rem" }}>
         <div>
           {selectedFundraiser ? (
             <Box sx={{ width: "100%" }}>
@@ -45,7 +49,7 @@ function FundraiserDetails() {
                   <br />
                   <br />
 
-                  <div className="outer">
+                  <div className="flex">
                     <div className="pr-4">
                       <img src="/assets/profile-icon.png" alt="profileIcon" className="w-16 h-16 rounded-full " />
                     </div>
@@ -61,9 +65,9 @@ function FundraiserDetails() {
                   <p className="description">{selectedFundraiser.description}</p>
                   <br />
                   <br />
-                  <Chip className="profile-chip text-white" label={` Category: Pets`} variant="outlined" />
-                  <Chip className="profile-chip text-white" label={` Created at: Dec 01 2024`} variant="outlined" />
-                  <Chip className="profile-chip text-white" label={`Fundraiser id: 1`} variant="outlined" />
+                  <Chip className="profile-chip text-black" label={` Category: Pets`} variant="outlined" />
+                  <Chip className="profile-chip text-black" label={` Created at: Dec 01 2024`} variant="outlined" />
+                  <Chip className="profile-chip text-black" label={`Fundraiser id: 1`} variant="outlined" />
                   <br />
                   <br />
                   <hr style={{ border: "1px solid #c8c8c8" }} />
@@ -119,8 +123,9 @@ function FundraiserDetails() {
                           background: "linear-gradient(180deg,#fdb933 35.42%,#f58131 139.58%)",
                           color: "black",
                         }}
+                        onClick={getUpdates}
                       >
-                        Donate NFTs
+                        Signup for updates
                       </Button>
                       <br />
                       <br />

@@ -23,15 +23,25 @@ function FoodPayment() {
   const calories = Number(56);
   const [selected, setSelected] = useState(Number(-1));
   const [selectedFood, setSelectedFood] = useState("");
+  const [transaction, setTransaction] = useState<any>();
   const [count, setCount] = useState(0);
-
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const [price, setPrice] = useState(0.99);
-
   const { data: walletClient } = useWalletClient();
   const { data: yourContract } = useScaffoldContract({
     contractName: "Petfeedme",
     walletClient,
   });
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    console.log("🚀 ~ file: foodPayment.tsx:44 ~ closePopup ~ closePopup:", closePopup);
+    setPopupOpen(false);
+    router.push("/fundraiserDetails");
+  };
 
   const calculateTotal = () => {
     const total = count * price;
@@ -61,8 +71,9 @@ function FoodPayment() {
   };
 
   const feedPet = async () => {
-    await yourContract?.write.feedPet([address]);
-    router.push("/statusCat");
+    // const transaction = await yourContract?.write.feedPet([address]);
+    // setTransaction(transaction);
+    openPopup();
   };
 
   return (
@@ -70,6 +81,24 @@ function FoodPayment() {
       <div className="flex items-center justify-center">
         <div className="w-[70%] mt-40">
           <div className="mb-20"></div>
+
+          {/* Pop-up container */}
+          {isPopupOpen && (
+            <div className=" fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+              {/* Pop-up content */}
+              <div className="bg-white p-12 rounded shadow-md ">
+                <h1 className="text-black text-lg font-semibold">Success! </h1>
+                <p className="text-gray-800">Your donation was completed.</p>
+                <p className="text-gray-800">
+                  Transaction id: <span className="text-sm text-gray-500"> {transaction}</span>{" "}
+                </p>
+                {/* Close button */}
+                <button onClick={closePopup} className="mt-4 bg-red-500 text-white py-2 px-4 rounded">
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
 
           <div className="grid grid-cols-5 gap-4">
             <div className=" col-span-2">
@@ -105,13 +134,7 @@ function FoodPayment() {
                       width={1900}
                       height={1900}
                       alt="pet"
-                      className={`object-cover w-[120px] h-[120px] cursor-pointer ${
-                        selected === 1 && "border-4 border-dotted border-black p-4  rounded-lg"
-                      }`}
-                      onClick={() => {
-                        setSelected(1);
-                        setSelectedFood("Fish");
-                      }}
+                      className={`object-cover w-[120px] h-[120px] cursor-pointer border-4 border-dotted border-black p-4  rounded-lg`}
                     />
                     <p className="text-black m-0 text-md ">Price item: {price}</p>
                     <p className="text-black m-0 text-md ">Calories: {calories}</p>

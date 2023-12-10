@@ -40,7 +40,7 @@ export const RainbowKitCustomConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
+                  <button className="btn btn-primary btn-sm " onClick={openConnectModal} type="button">
                     Connect Wallet
                   </button>
                 );
@@ -48,8 +48,8 @@ export const RainbowKitCustomConnectButton = () => {
 
               if (chain.unsupported || chain.id !== configuredNetwork.id) {
                 return (
-                  <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-error btn-sm dropdown-toggle gap-1">
+                  <div className="dropdown dropdown-end ">
+                    <label tabIndex={0} className="btn btn-error btn-sm dropdown-toggle gap-1 ">
                       <span>Wrong network</span>
                       <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
                     </label>
@@ -81,21 +81,21 @@ export const RainbowKitCustomConnectButton = () => {
               }
 
               return (
-                <div className="px-2 flex justify-end items-center">
-                  <div className="flex flex-col items-center mr-1">
+                <div className="px-2 flex justify-end items-center  ">
+                  <div className="flex flex-col items-center mr-1 text-black">
                     <Balance address={account.address} className="min-h-0 h-auto" />
                     <span className="text-xs" style={{ color: networkColor }}>
                       {chain.name}
                     </span>
                   </div>
-                  <div className="dropdown dropdown-end leading-3">
+                  <div className="dropdown dropdown-end leading-3  text-black ">
                     <label
                       tabIndex={0}
-                      className="btn bg-base-200 border border-base-200 btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto"
+                      className="btn bg-base-200 border border-base-200 btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto "
                     >
                       <BlockieAvatar address={account.address} size={30} ensImage={account.ensAvatar} />
-                      <span className="ml-2 mr-1">{account.displayName}</span>
-                      <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
+                      <span className="ml-2 mr-1 text-black hover:text-white">{account.displayName}</span>
+                      <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0 " />
                     </label>
                     <ul
                       tabIndex={0}
@@ -173,7 +173,7 @@ export const RainbowKitCustomConnectButton = () => {
                         >
                           ✕
                         </label>
-                        <div className="space-y-3 py-6">
+                        <div className="space-y-3 py-6 text-black">
                           <div className="flex space-x-4 flex-col items-center gap-6">
                             <QRCodeSVG value={account.address} size={256} />
                             <Address address={account.address} format="long" disableAddressLink />

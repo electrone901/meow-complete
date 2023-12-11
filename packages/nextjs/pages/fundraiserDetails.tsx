@@ -11,10 +11,9 @@ function FundraiserDetails() {
       "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.aphis.usda.gov%2Faphis%2Fpet-travel%2Fdefinition-of-a-pet&psig=AOvVaw2xyMNmlxuEtyBw_hQ9pMIa&ust=1702286432621000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCLDF_KPFhIMDFQAAAAAdAAAAABAE",
     category: "category",
     imageType: "imageType",
-    title: "This is the title",
+    title: "Jessie needs your help",
     organizer: "0xFF96A324757l0F6DaE2382C2dAD52d6E196a8d14",
-    url:
-      "https://abc6onyourside.com/resources/media2/16x9/full/1024/center/80/69f6539c-72ef-4443-82fb-df04592f459e-large16x9_GettyImages1124551251.jpg",
+    url: "https://www.thehappycatsite.com/wp-content/uploads/2020/05/yellow-tabby-HC-long.jpg",
     targetAmmount: "500",
     totalDonations: "5",
     description:
@@ -40,7 +39,7 @@ function FundraiserDetails() {
               <br />
               <br />
               <br />
-              <p className="title-fundraiser"> {selectedFundraiser.title}</p>
+              <p className="font-semibold text-2xl   "> {selectedFundraiser.title}</p>
               <br />
 
               <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

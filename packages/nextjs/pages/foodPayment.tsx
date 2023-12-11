@@ -71,8 +71,8 @@ function FoodPayment() {
   };
 
   const feedPet = async () => {
-    // const transaction = await yourContract?.write.feedPet([address]);
-    // setTransaction(transaction);
+    const transaction = await yourContract?.write.feedPetanddonate(["0", price, calories]);
+    setTransaction(transaction);
     openPopup();
   };
 

@@ -119,6 +119,12 @@ contract Petfeedme is ERC721URIStorage, VRFV2WrapperConsumerBase, ConfirmedOwner
      pet.calories += caloriesAmount;
   }
 
+  function feedPetanddonate(uint id, uint donations, uint calories) public  {
+    PetProfile storage pet = petList[id];
+    pet.calories += calories;
+    pet.donations += donations;
+  }
+
   function createFoundraiser(string calldata _cid, uint _targetAmmount) public  {
     fundraiserList[_totalFundraisers] = Fundraiser(_totalFundraisers, _cid, _targetAmmount, 0, msg.sender);
     emit FundraiserCreated(_totalFundraisers, _cid, _targetAmmount, msg.sender);

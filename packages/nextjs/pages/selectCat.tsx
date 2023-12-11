@@ -47,7 +47,7 @@ function SelectCat() {
   const setImage = async () => {
     console.log(data[selectedImage].front);
     // await yourContract?.write.createPetProfile([0, address, 0, "", "", data[selectedImage].front, ""]);
-    router.push("/nameCat");
+    router.push("/statusCat");
   };
 
   return (

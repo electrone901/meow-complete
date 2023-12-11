@@ -71,7 +71,7 @@ function FoodPayment() {
   };
 
   const feedPet = async () => {
-    const transaction = await yourContract?.write.feedPetanddonate(["0", price, calories]);
+    const transaction = await yourContract?.write.feedPetanddonate(["0", price * 100, calories]);
     setTransaction(transaction);
     openPopup();
   };

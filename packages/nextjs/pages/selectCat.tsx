@@ -47,7 +47,7 @@ function SelectCat() {
   const setImage = async () => {
     console.log(data[selectedImage].front);
     // await yourContract?.write.createPetProfile([0, address, 0, "", "", data[selectedImage].front, ""]);
-    router.push("/nameCat");
+    router.push("/statusCat");
   };
 
   return (
@@ -105,7 +105,7 @@ function SelectCat() {
           className="bg-gray-400 text-white border-4 border-white hover:bg-gray-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out w-[140px]"
           onClick={() => setImage()}
         >
-          Upload Your Cat Story
+          Continue
         </button>
       </div>
     </div>

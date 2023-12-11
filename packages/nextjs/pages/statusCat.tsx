@@ -34,7 +34,7 @@ function StatusCat() {
           <div className="grid grid-cols-5 gap-4">
             <div className=" p-4 col-span-2 flex items-center justify-center">
               <Image
-                src={petProfile?.img}
+                src="/assets/cat 001.png"
                 width={1900}
                 height={1900}
                 alt="pet"
